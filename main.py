@@ -4,11 +4,12 @@ from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import uvicorn
-from dotenv import dotenv_values
 import json
 
-cnfg = dotenv_values(".env")
-print(cnfg)
+cnfg = {
+    "HOST":"0.0.0.0",
+    "PORT":"9001"
+}
 
 origins = ["*"]
 
