@@ -23,11 +23,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/{size}")
-async def getBoard(size:str):
+@app.get("/{size}/{ratio}")
+async def getBoard(size:str, ratio:float):
     row, column = map(int, size.split("-"))
     g = graph((row,column))
-    random(g)
+    random(g, n=(row*column*ratio))
     pk = {
             "numberOfRows": g.size[0],
             "numberOfCols": g.size[1],
