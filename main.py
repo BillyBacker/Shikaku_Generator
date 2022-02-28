@@ -1,6 +1,7 @@
 from genHint import graph, genClues, random
 from fastapi import FastAPI, status
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import uvicorn
 from dotenv import dotenv_values
@@ -9,7 +10,17 @@ import json
 cnfg = dotenv_values(".env")
 print(cnfg)
 
+origins = ["*"]
+
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/{size}")
 async def getBoard(size:str):
