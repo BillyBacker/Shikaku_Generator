@@ -146,21 +146,7 @@ def random(graph: graph, n=None, max=None):
             choice = rd.choices(a)[0]
         else:
             break
-        if 1 in choice.blockDim():
-            print(f"choice : {choice.blockDim()}")
-            if choice.blockDim()[0] > 2:
-                print("a")
-                r = rd.randint(1, choice.blockDim()[0]-1)
-                print(r)
-                # print(f"a {r} {choice.blockDim()}")
-                graph.hSnip(r, choice)
-            elif choice.blockDim()[1] > 2:
-                print("b")
-                r = rd.randint(1, choice.blockDim()[1]-1)
-                print(r)
-                # print(f"b {r} {choice.blockDim()}")
-                graph.vSnip(r, choice)
-        else:
+        if 1 not in choice.blockDim():
             if flipCoin():
                 r = rd.randint(1, choice.blockDim()[0]-1)
                 # print(f"a {r} {choice.blockDim()}")

@@ -7,9 +7,10 @@ solver_url = 'http://localhost:9000/'
 strategies = ['breath-first-search', 'depth-first-search']
 
 BOARD_SIZE = (5, 5)
-NUMBER_OF_TESTS = 100
+RATIO = 0.5
+NUMBER_OF_TESTS = 1
 
-res = requests.get(f'{generator_url}{BOARD_SIZE[0]}-{BOARD_SIZE[1]}')
+res = requests.get(f'{generator_url}{BOARD_SIZE[0]}-{BOARD_SIZE[1]}/{RATIO}')
 
 game = res.json()
 
@@ -19,6 +20,7 @@ for strategy in strategies:
     res2 = requests.post(f'{solver_url}test-{strategy}', data=json.dumps(test_request), headers=headers)
 
     test_result = {'type': strategy, **res2.json()}
+    print(res2.json())
     with open(f'test_result_{strategy}', 'w') as fp:
         json.dump(test_result, fp, indent=4) 
 print('FINISHED')
